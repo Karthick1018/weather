@@ -1,30 +1,74 @@
-import React, { useEffect } from 'react';
-import { SafeAreaView, View, ImageBackground, TouchableOpacity, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+// import React, { useRef, useState } from 'react';
+// import {
+//     Button,
+//     DrawerLayoutAndroid,
+//     Text,
+//     StyleSheet,
+//     View,
 
-const Main = () => {
-    const navigation = useNavigation();
+// } from 'react-native';
+// import { Avatar } from 'react-native-elements';
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            navigation.navigate('Home');
-        }, 400);
+// const App = () => {
+//     const drawer = useRef(null);
 
-        return () => clearTimeout(timeout);
-    }, [navigation]);
+//     const navigationView = () => (
+//         <View style={[styles.container, styles.navigationContainer]}>
+//             {/* <TouchableOpacity>
+//             <Text style={styles.text}>
+//                 Chennai
+//             </Text>
+//            </TouchableOpacity> */}
+//             <Avatar
+//                 rounded
+//                 source={require('../assets/img2.gif')}
+//                 size='medium'
+//             />
+//             <Text>
+//                 Chennai
+//             </Text>
+//         </View>
+//     );
 
-    return (
-        <SafeAreaView>
-            <View>
-                <ImageBackground
-                    source={require('../assets/img2.gif')}
-                    style={{ height: '100%' }}
-                    resizeMode="cover"
-                >
-                </ImageBackground>
-            </View>
-        </SafeAreaView>
-    );
-}
+//     return (
+//         <DrawerLayoutAndroid
+//             ref={drawer}
+//             drawerWidth={300}
+//             renderNavigationView={navigationView}>
+//             <View style={styles.container1}>
+//                 <Text style={styles.paragraph}>
+//                     press
+//                 </Text>
+//                 <Button
+//                     title="Open drawer"
+//                     onPress={() => drawer.current.openDrawer()}
+//                 />
+//             </View>
+//         </DrawerLayoutAndroid>
+//     );
+// };
 
-export default Main;
+// const styles = StyleSheet.create({
+//     container1: {
+//         flex: 1,
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         padding: 16,
+//     },
+//     container: {
+//         height: '100%',
+//         paddingHorizontal:'5%',
+//         paddingVertical:'2%',
+//         flexDirection:'row'
+//     },
+//     navigationContainer: {
+//         backgroundColor: '#ecf0f1',
+//     },
+//     paragraph: {
+//         padding: 16,
+//         fontSize: 15,
+//         textAlign: 'center',
+//     },
+// });
+
+// export default App;

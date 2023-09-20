@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { ImageBackground, SafeAreaView, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Linking } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useRef, useState } from "react";
+import { ImageBackground, SafeAreaView, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, DrawerLayoutAndroid, Button, Linking } from "react-native";
 import CountryFlag from "react-native-country-flag";
-import { Card, Text } from "react-native-elements";
+import { Avatar, Card, Text } from "react-native-elements";
 import WebView from 'react-native-webview';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Home = () => {
-    const [cities] = useState(["dharapuram", "pakistan", "chennai", "london", "australia", "china", "england"]);
+    const [cities] = useState(["dharapuram", "australia", "pakistan", "chennai", "london", "china", "england"]);
     const [weatherData, setWeatherData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [webViewUrl, setWebViewUrl] = useState(null);
@@ -17,7 +19,7 @@ const Home = () => {
 
     const handlePress = (city) => {
         const searchQuery = city.toLowerCase();
-        const url = `https://weather.com`;
+        const url = `https://www.google.com/search?q=${searchQuery}`;
         setWebViewUrl(url);
     };
     const handleGoBack = () => {
@@ -48,6 +50,46 @@ const Home = () => {
         }
     }, [searchQuery]);
 
+    // const navigation = useNavigation();
+    // const press = () => {
+    //     navigation.navigate('Content')
+    // }
+
+    const drawer = useRef(null);
+    const navigationView = () => (
+        <View
+            style={[styles.container, styles.navigationContainer]}>
+            <TouchableOpacity
+                onPress={() => openLink('https://www.instagram.com')}>
+                <FontAwesome
+                    name="instagram"
+                    size={30}
+                    color="#000"
+                    style={styles.icon} />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => openLink('https://www.facebook.com')}>
+                <FontAwesome
+                    name="facebook"
+                    size={30}
+                    color="#000"
+                    style={styles.icon} />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => openLink('https://www.gmail.com')}>
+                <FontAwesome
+                    name="envelope"
+                    size={30}
+                    color="#000"
+                    style={styles.icon} />
+            </TouchableOpacity>
+        </View>
+    );
+
+    const openLink = (url) => {
+        Linking.openURL(url).catch(err => console.error('An error occurred', err));
+    };
+
     return (
         <SafeAreaView>
             <ImageBackground
@@ -75,18 +117,18 @@ const Home = () => {
                     />
                 </View>
                 <ScrollView
-                    horizontal showsHorizontalScrollIndicator={false}>
+                    horizontal showsHorizontalScrollIndicator={true}>
                     <View
                         style={{ flexDirection: 'row', marginTop: '5%' }}>
                         {weatherData.map((weather, index) => (
                             <TouchableOpacity key={index} onPress={() => handlePress(weather.name)}>
                                 <Card
                                     key={index}
-                                    containerStyle={{ width: 200, height: 200, borderRadius: 10 ,backgroundColor:'#d7ded9'}}>
+                                    containerStyle={{ width: 180, height: 200, borderRadius: 10, backgroundColor: '#d7ded9' }}>
                                     <View>
                                         <Text
                                             style={styles.citytext}>
-                                            {weather.name }
+                                            {weather.name}
                                         </Text>
                                         <Text
                                             style={styles.citytext}>
@@ -114,17 +156,7 @@ const Home = () => {
                         ))}
                     </View>
                 </ScrollView>
-                <View
-                    style={{ marginBottom:80, marginLeft: 158 }}
-                    >
-                    <TouchableOpacity
-                        onPress={() => handlePress('Today')}>
-                        <Text
-                            style={{color:'white', fontSize: 15, fontStyle: 'italic' }}>
-                            Click here to go more weather details
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+
                 {webViewUrl && (
                     <View
                         style={{ height: '100%' }}>
@@ -139,7 +171,20 @@ const Home = () => {
                             source={{ uri: webViewUrl }}
                         />
                     </View>
-                )}   
+                )}
+                <View style={{ height: '20%' }}>
+                    <DrawerLayoutAndroid
+                        ref={drawer}
+                        drawerWidth={300}
+                        renderNavigationView={navigationView}>
+                        <View style={styles.container1}>
+                            <Button
+                                title="Press"
+                                onPress={() => drawer.current.openDrawer()}
+                            />
+                        </View>
+                    </DrawerLayoutAndroid>
+                </View>
             </ImageBackground>
         </SafeAreaView>
     );
@@ -152,6 +197,7 @@ const styles = StyleSheet.create({
         width: '90%',
         borderRadius: 10,
         top: '20%',
+        backgroundColor: '#d7ded9'
     },
     headingtext: {
         fontSize: 20,
@@ -173,5 +219,25 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: '#cfcdca',
         width: '60%'
+    },
+    container1: {
+        // flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16,
+    },
+    container: {
+        height: '100%',
+        paddingHorizontal: '5%',
+        paddingVertical: '2%'
+    },
+    navigationContainer: {
+        backgroundColor: '#ecf0f1',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 20,
+    },
+    icon: {
+        marginHorizontal: 10,
     },
 });
