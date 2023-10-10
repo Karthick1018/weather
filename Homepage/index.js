@@ -17,15 +17,6 @@ const Home = () => {
         base: "https://api.openweathermap.org/data/2.5/",
     };
 
-    const handlePress = (city) => {
-        const searchQuery = city.toLowerCase();
-        const url = `https://www.google.com/search?q=${searchQuery}`;
-        setWebViewUrl(url);
-    };
-    const handleGoBack = () => {
-        setWebViewUrl(null);
-    };
-
     useEffect(() => {
         const fetchWeatherData = async () => {
             const data = await Promise.all(
@@ -49,6 +40,15 @@ const Home = () => {
             searchCityWeather();
         }
     }, [searchQuery]);
+
+    const handlePress = (city) => {
+        const searchQuery = city.toLowerCase();
+        const url = `https://www.google.com/search?q=${searchQuery}`;
+        setWebViewUrl(url);
+    };
+    const handleGoBack = () => {
+        setWebViewUrl(null);
+    };
 
     // const navigation = useNavigation();
     // const press = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, View, ImageBackground, TouchableOpacity, Text, Animated, Easing } from 'react-native';
+import { SafeAreaView, View, ImageBackground } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 const Main = () => {
